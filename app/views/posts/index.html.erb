@@ -1,0 +1,21 @@
+<h1>Clubhouse landing page</h1>
+
+<% @posts.each do |post| %>
+    <div class="post-block">
+        <p>Post <%= post.id %></p>
+        <p>Title: <strong><%= post.title %></strong></p>
+        <p>Body: <%= post.body %></p>
+        <% if post.user && user_signed_in? %>
+            <p>Written by: <%= post.user.email %></p><br>
+        <% end %>
+    </div>
+<% end %>
+
+<%= link_to "Write new post", new_post_path %>
+
+<% if user_signed_in? %>
+    <%= link_to "Log Out", destroy_user_session_path, data: { turbo_method: :delete } %>
+<% else %>
+    <%= link_to "Log In", new_user_session_path %>
+    <%= link_to "Sign Up", new_user_registration_path %>
+<% end %>
